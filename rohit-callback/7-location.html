@@ -33,7 +33,12 @@
             if (navigator.geolocation) {
 
                 // Asynchronous callback functions are passed here:
+                // in navigator.geolocation.getCurrentPosition() -> the first arg is always executed upon success of fetching data and the other is done so for any error. 
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
+
+                // the fetching text is written after the operation of fetch
+                document.getElementById('locationInfo').innerHTML = `
+                <p class="font-bold">Latitude: <span class="font-normal">Fetching...</span></p>`;
 
             } else {
                 document.getElementById('locationInfo').innerText = "Geolocation is not supported by your browser.";
@@ -44,6 +49,7 @@
         function showPosition(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
+            document.getElementById('locationInfo').innerHTML = ``;
             document.getElementById('locationInfo').innerHTML = `
                 <p class="font-bold">Latitude: <span class="font-normal">${latitude}</span></p>
                 <p class="font-bold">Longitude: <span class="font-normal">${longitude}</span></p>`;
